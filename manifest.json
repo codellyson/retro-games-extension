@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Breakout New Tab",
+  "name": "Retro New Tab",
   "version": "1.0.0",
-  "description": "Every new tab is a game of Breakout. Glassy, neon, or paper — your pick.",
+  "description": "Every new tab is a quick retro game. Breakout, Snake, and more — in glassy, neon, or paper sketch themes.",
   "icons": {
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",
