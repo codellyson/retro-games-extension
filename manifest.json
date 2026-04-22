@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Breakout New Tab",
+  "version": "1.0.0",
+  "description": "Every new tab is a game of Breakout. Glassy, neon, or paper — your pick.",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "permissions": ["storage"],
+  "commands": {
+    "toggle_game": {
+      "suggested_key": {
+        "default": "Alt+B",
+        "mac": "Alt+B"
+      },
+      "description": "Toggle game on/off on the new-tab page"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
