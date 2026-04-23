@@ -8,11 +8,12 @@
   <body data-theme="glassy">
     <div class="bg-layer" id="bgLayer"></div>
 
-    <header class="chrome">
+    <aside class="sidebar">
       <div class="clock">
         <div class="time" id="time">—</div>
         <div class="date" id="date">—</div>
       </div>
+
       <form class="search" id="searchForm" autocomplete="off">
         <svg viewBox="0 0 24 24" width="16" height="16" class="search-icon" aria-hidden="true">
           <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
@@ -21,83 +22,88 @@
         <input id="searchInput" type="text" placeholder="Search the web…" spellcheck="false" />
         <kbd class="kbd">↵</kbd>
       </form>
-      <div class="top-right">
-        <div class="top-row">
-          <button class="icon-btn" id="pauseBtn" title="Pause/resume (P)" aria-label="Pause or resume">
-            <svg id="iconPause" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="6" y="4" width="4" height="16"></rect>
-              <rect x="14" y="4" width="4" height="16"></rect>
-            </svg>
-            <svg id="iconPlay" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-              <polygon points="6 3 20 12 6 21 6 3"></polygon>
-            </svg>
-          </button>
-          <button class="icon-btn" id="muteBtn" title="Toggle sound (M)" aria-label="Toggle sound">
-            <svg id="iconSoundOn" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-            </svg>
-            <svg id="iconSoundOff" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-              <line x1="23" y1="9" x2="17" y2="15"></line>
-              <line x1="17" y1="9" x2="23" y2="15"></line>
-            </svg>
-          </button>
-          <div class="theme-picker" role="tablist" aria-label="Theme">
-            <button data-theme="glassy" class="theme-btn" title="Glassy">
-              <span class="swatch glassy"></span><span>Glassy</span>
-            </button>
-            <button data-theme="neon" class="theme-btn" title="Neon arcade">
-              <span class="swatch neon"></span><span>Neon</span>
-            </button>
-            <button data-theme="paper" class="theme-btn" title="Paper sketch">
-              <span class="swatch paper"></span><span>Paper</span>
-            </button>
-          </div>
-        </div>
-        <div class="bottom-row">
-          <div class="game-picker" role="tablist" aria-label="Game">
-            <button data-game="breakout" class="game-btn" title="Breakout"><span>Breakout</span></button>
-            <button data-game="snake" class="game-btn" title="Snake"><span>Snake</span></button>
-          </div>
-          <div class="diff-picker" role="tablist" aria-label="Difficulty">
-            <button data-difficulty="easy" class="diff-btn" title="Easy"><span>Easy</span></button>
-            <button data-difficulty="normal" class="diff-btn" title="Normal"><span>Normal</span></button>
-            <button data-difficulty="hard" class="diff-btn" title="Hard"><span>Hard</span></button>
-          </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Game</div>
+        <div class="game-picker" role="tablist" aria-label="Game">
+          <button data-game="breakout" class="game-btn" title="Breakout"><span>Breakout</span></button>
+          <button data-game="snake" class="game-btn" title="Snake"><span>Snake</span></button>
+          <button data-game="brickshootr" class="game-btn" title="Brickshootr"><span>Shootr</span></button>
+          <button data-game="dodger" class="game-btn" title="Dodger"><span>Dodger</span></button>
         </div>
       </div>
-    </header>
 
-    <main class="stage" id="stage">
-      <canvas id="gameCanvas" aria-label="Breakout game"></canvas>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Difficulty</div>
+        <div class="diff-picker" role="tablist" aria-label="Difficulty">
+          <button data-difficulty="easy" class="diff-btn" title="Easy"><span>Easy</span></button>
+          <button data-difficulty="normal" class="diff-btn" title="Normal"><span>Normal</span></button>
+          <button data-difficulty="hard" class="diff-btn" title="Hard"><span>Hard</span></button>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Theme</div>
+        <div class="theme-picker" role="tablist" aria-label="Theme">
+          <button data-theme="glassy" class="theme-btn" title="Glassy">
+            <span class="swatch glassy"></span><span>Glassy</span>
+          </button>
+          <button data-theme="neon" class="theme-btn" title="Neon arcade">
+            <span class="swatch neon"></span><span>Neon</span>
+          </button>
+          <button data-theme="paper" class="theme-btn" title="Paper sketch">
+            <span class="swatch paper"></span><span>Paper</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="sidebar-controls">
+        <button class="icon-btn" id="pauseBtn" title="Pause/resume (P)" aria-label="Pause or resume">
+          <svg id="iconPause" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+          <svg id="iconPlay" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <polygon points="6 3 20 12 6 21 6 3"></polygon>
+          </svg>
+        </button>
+        <button class="icon-btn" id="muteBtn" title="Toggle sound (M)" aria-label="Toggle sound">
+          <svg id="iconSoundOn" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+          <svg id="iconSoundOff" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        </button>
+      </div>
+
       <div class="hud">
         <div class="hud-row"><span class="hud-label">SCORE</span><span id="score">0000</span></div>
         <div class="hud-row"><span class="hud-label">LEVEL</span><span id="level">1</span></div>
         <div class="hud-row"><span class="hud-label">LIVES</span><span id="lives">♥♥♥</span></div>
         <div class="hud-row"><span class="hud-label">BEST</span><span id="best">0000</span></div>
       </div>
-      <div class="overlay" id="overlay">
-        <div class="overlay-title" id="overlayTitle">Hold &amp; drag to play</div>
-        <div class="overlay-sub" id="overlaySub">Click the board to launch</div>
+
+      <footer class="foot">
+        <span>Arrows to play</span>
+        <span>Space to start</span>
+        <span>P to pause · M to mute</span>
+      </footer>
+    </aside>
+
+    <main class="stage" id="stage">
+      <div class="canvas-wrap">
+        <canvas id="gameCanvas" aria-label="Game board"></canvas>
+        <div class="overlay" id="overlay">
+          <div class="overlay-title" id="overlayTitle">Hold &amp; drag to play</div>
+          <div class="overlay-sub" id="overlaySub">Click the board to launch</div>
+        </div>
       </div>
     </main>
-
-    <nav class="bookmarks" id="bookmarks" hidden>
-      <a href="https://mail.google.com" class="bm">Mail</a>
-      <a href="https://calendar.google.com" class="bm">Calendar</a>
-      <a href="https://drive.google.com" class="bm">Drive</a>
-      <a href="https://github.com" class="bm">GitHub</a>
-      <a href="https://youtube.com" class="bm">YouTube</a>
-    </nav>
-
-    <footer class="foot">
-      <span>Arrow keys to play</span><span class="dot">·</span>
-      <span>Space to start</span><span class="dot">·</span>
-      <span>P to pause</span><span class="dot">·</span>
-      <span>M to mute</span>
-    </footer>
 
     <script type="module" src="newtab.js"></script>
   </body>

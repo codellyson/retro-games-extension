@@ -4,8 +4,10 @@
 
 // ---- Game registry ------------------------------------------------------
 const GAMES = {
-  breakout: { name: "Breakout", module: "./games/breakout.js" },
-  snake:    { name: "Snake",    module: "./games/snake.js" },
+  breakout:    { name: "Breakout",    module: "./games/breakout.js" },
+  snake:       { name: "Snake",       module: "./games/snake.js" },
+  brickshootr: { name: "Brickshootr", module: "./games/brickshootr.js" },
+  dodger:      { name: "Dodger",      module: "./games/dodger.js" },
 };
 
 // ---- Elements -----------------------------------------------------------
@@ -23,7 +25,6 @@ const dateEl = document.getElementById("date");
 const searchForm = document.getElementById("searchForm");
 const searchInput = document.getElementById("searchInput");
 const themePicker = document.querySelector(".theme-picker");
-const bookmarksEl = document.getElementById("bookmarks");
 const muteBtn = document.getElementById("muteBtn");
 const iconOn = document.getElementById("iconSoundOn");
 const iconOff = document.getElementById("iconSoundOff");
@@ -32,6 +33,7 @@ const iconPause = document.getElementById("iconPause");
 const iconPlay = document.getElementById("iconPlay");
 const diffPicker = document.querySelector(".diff-picker");
 const gamePicker = document.querySelector(".game-picker");
+const stageEl = document.getElementById("stage");
 
 // ---- Storage ------------------------------------------------------------
 const storage = {
@@ -241,6 +243,7 @@ async function loadGame(id) {
     btn.classList.toggle("active", btn.dataset.game === id);
   }
   updatePauseIcon();
+  fitCanvas();
 }
 
 gamePicker.addEventListener("click", (e) => {
@@ -249,6 +252,34 @@ gamePicker.addEventListener("click", (e) => {
   if (btn.dataset.game === currentGameId) return;
   loadGame(btn.dataset.game);
 });
+
+// ---- Canvas sizing ------------------------------------------------------
+// Games set canvas.width/height (internal resolution). The browser scales that
+// bitmap to the CSS display size we set here — which is the biggest box that
+// fits the stage while preserving the game's aspect ratio.
+function fitCanvas() {
+  const rect = stageEl.getBoundingClientRect();
+  const framePad = 28; // .canvas-wrap padding (14px * 2)
+  const safety = 8;    // small buffer so we never overflow
+  const availW = rect.width  - framePad - safety;
+  const availH = rect.height - framePad - safety;
+  if (availW <= 0 || availH <= 0) return;
+  const iw = canvas.width  || 720;
+  const ih = canvas.height || 585;
+  const gameRatio = iw / ih;
+  const availRatio = availW / availH;
+  let w, h;
+  if (availRatio > gameRatio) {
+    h = availH;
+    w = h * gameRatio;
+  } else {
+    w = availW;
+    h = w / gameRatio;
+  }
+  canvas.style.width = `${Math.floor(w)}px`;
+  canvas.style.height = `${Math.floor(h)}px`;
+}
+window.addEventListener("resize", fitCanvas);
 
 // ---- Main loop ----------------------------------------------------------
 let lastTime = 0;
@@ -265,9 +296,8 @@ function loop(nowMs) {
 
 // ---- Boot ---------------------------------------------------------------
 (async () => {
-  const saved = await storage.get(["theme", "showBookmarks", "muted", "difficulty", "currentGame"]);
+  const saved = await storage.get(["theme", "muted", "difficulty", "currentGame"]);
   applyTheme(saved.theme || "glassy");
-  bookmarksEl.hidden = saved.showBookmarks === false;
   setMuted(!!saved.muted);
   applyDifficulty(saved.difficulty || "normal");
   await loadGame(saved.currentGame || "breakout");

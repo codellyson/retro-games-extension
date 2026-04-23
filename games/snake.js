@@ -9,10 +9,10 @@ export const meta = {
 export async function init(api) {
   const { canvas, ctx, storage, audio, hud, overlay, getTheme, getDifficulty, onStatusChange } = api;
 
-  const COLS = 40;
+  const COLS = 56;
   const ROWS = 32;
   const CELL = 18;
-  const W = COLS * CELL; // 720
+  const W = COLS * CELL; // 1008
   const H = ROWS * CELL; // 576
 
   canvas.width = W;
@@ -302,10 +302,6 @@ export async function init(api) {
         ctx.fill();
       }
     }
-
-    ctx.strokeStyle = INK;
-    ctx.lineWidth = 1.5;
-    ctx.strokeRect(12, 12, W - 24, H - 24);
 
     const a = game.apple;
     ctx.fillStyle = "rgba(200,50,50,0.3)";

@@ -27,8 +27,8 @@ export async function init(api) {
     paper: { ink: "#8a2a1a" },
   };
 
-  let W = 720;
-  const ASPECT = 520 / 640;
+  let W = 1040;
+  const ASPECT = 9 / 16;
   let H = Math.round(W * ASPECT);
 
   let paddleEffectMul = 1;
@@ -499,9 +499,6 @@ export async function init(api) {
       for (let y = 6; y < H; y += 12) {
         ctx.beginPath(); ctx.arc(x, y, 1, 0, Math.PI * 2); ctx.fill();
       }
-    ctx.strokeStyle = INK; ctx.lineWidth = 1.5;
-    ctx.strokeRect(12, 12, W - 24, H - 24);
-
     ctx.lineWidth = 1.5; ctx.strokeStyle = INK; ctx.fillStyle = "rgba(138,42,26,0.08)";
     for (const b of game.bricks) {
       if (!b.alive) continue;
@@ -611,7 +608,7 @@ export async function init(api) {
   const saved = await storage.get(["best"]);
   game.best = saved.best || 0;
   hud.setBest(game.best);
-  recomputeSize(720);
+  recomputeSize(1040);
   resetGame();
 
   return {

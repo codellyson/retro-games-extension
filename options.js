@@ -1,6 +1,5 @@
 const themesEl = document.getElementById("themes");
 const difficultyEl = document.getElementById("difficulty");
-const bookmarksEl = document.getElementById("bookmarks");
 const bestEl = document.getElementById("best");
 const resetEl = document.getElementById("reset");
 const soundEl = document.getElementById("sound");
@@ -9,7 +8,7 @@ const get = (keys) => new Promise((r) => chrome.storage.sync.get(keys, r));
 const set = (obj) => new Promise((r) => chrome.storage.sync.set(obj, r));
 
 async function load() {
-  const s = await get(["theme", "showBookmarks", "best", "muted", "difficulty"]);
+  const s = await get(["theme", "best", "muted", "difficulty"]);
   const theme = s.theme || "glassy";
   for (const btn of themesEl.querySelectorAll(".theme")) {
     btn.classList.toggle("active", btn.dataset.theme === theme);
@@ -18,7 +17,6 @@ async function load() {
   for (const btn of difficultyEl.querySelectorAll(".theme")) {
     btn.classList.toggle("active", btn.dataset.difficulty === difficulty);
   }
-  bookmarksEl.checked = s.showBookmarks !== false;
   soundEl.checked = !s.muted;
   bestEl.textContent = String(s.best || 0).padStart(4, "0");
 }
@@ -37,6 +35,5 @@ difficultyEl.addEventListener("click", async (e) => {
   await set({ difficulty: btn.dataset.difficulty });
   load();
 });
-bookmarksEl.addEventListener("change", () => set({ showBookmarks: bookmarksEl.checked }));
 soundEl.addEventListener("change", () => set({ muted: !soundEl.checked }));
 resetEl.addEventListener("click", async () => { await set({ best: 0 }); load(); });
